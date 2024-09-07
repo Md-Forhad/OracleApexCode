@@ -1,0 +1,20 @@
+// ajax callback from oracle apex application
+apex.server.process( "MY_PROCESS", {
+    x01: 123,
+    f01: jsArray,
+    pageItems: "#P1_DEPTNO,#P1_EMPNO"
+},
+{
+    dataType: "text", // default is json
+    success: function( data )  {
+        // do something here
+
+    },
+    error: function( jqXHR, textStatus, errorThrown ) {
+        // handle error
+    }
+} 
+).always( function() {
+    // code that needs to run for both success and failure cases
+ }
+);
