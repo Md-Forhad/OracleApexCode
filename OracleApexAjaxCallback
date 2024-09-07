@@ -1,4 +1,5 @@
-// ajax callback from oracle apex application
+////////// JS ajax callback from oracle apex application //////////
+---------------------------------------------------------------------
 apex.server.process( "MY_PROCESS", {
     x01: 123,
     f01: jsArray,
@@ -18,3 +19,43 @@ apex.server.process( "MY_PROCESS", {
     // code that needs to run for both success and failure cases
  }
 );
+
+
+////////// PL-SQL CODE for AJAX PROCESS //////////
+---------------------------------------------------------------------
+DECLARE
+FROM_NB_V VARCHAR2(100) ;
+TILL_NB_V VARCHAR2(100) ;
+p1_json VARCHAR2(32000);
+BEGIN
+
+ FROM_NB_V := '1234564987';
+ TILL_NB_V := '131654654';
+
+apex_json.initialize_clob_output;
+
+-- Open a new JSON object
+apex_json.open_object;
+
+-- Write a key-value pair to the JSON object
+apex_json.write('FROM_NB', FROM_NB_V);
+
+-- Write another key-value pair to the JSON object
+apex_json.write('TILL_NB', TILL_NB_V);
+
+-- Close the JSON object
+apex_json.close_object;
+
+    p1_json := apex_json.get_clob_output;
+    apex_json.free_output;
+
+htp.prn(p1_json);
+
+EXCEPTION
+    WHEN OTHERS THEN
+-- sqlerrm is a PL/SQL built-in function that retrieves the textual 
+-- description of the error associated with the most recent exception.
+--  It is commonly used for debugging and error handling.
+        htp.prn(sqlerrm);
+
+END;
