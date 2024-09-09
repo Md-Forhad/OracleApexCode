@@ -1,0 +1,26 @@
+// editable interactive gid
+apex.region("my_ig").call("getActions").set("edit", true);
+
+// hide edit button
+apex.region("my_ig").call("getActions").hide("edit");
+
+// get & set selected checkbox row column value
+
+1. make a dynamic action interactive grid report selection change : 
+
+2. execute js code 
+---------------------------
+var i, get_valueids = '', I_SELECTED_VAL, model = this.data.model;
+
+    for ( i=0; i<this.data.selectedRecords.length; i++ ){
+         I_SELECTED_VAL = model.getValue( this.data.selectedRecords[i], "ICIR_EMP_ID");
+        if  (get_valueids.length > 0) {
+            get_valueids += I_SELECTED_VAL.v +":";
+        } 
+        else {
+            get_valueids = I_SELECTED_VAL.v +":";
+        }
+    }
+
+console.log(get_valueids);
+apex.item( "P368_NEW" ).setValue ( get_valueids );
