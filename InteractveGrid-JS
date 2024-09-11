@@ -32,3 +32,40 @@ const model = this.data.model,
 let values = records.map( r => model.getValue( r, "ENAME" ) ); 
 
 apex.item( "P148_SELECTED_FIRST" ).setValue( values[0] );
+
+
+///////////// USE SPECIFIC GRID REGION COLUMN VALUE withhout this object using Region ID ////////////////
+=> 1 // create a dynamic action ==> SAVE-INTERACTIVE GRID <==
+--------------------------------------------------------------------
+var gridID = "Daily-ID-CARD-Issue-Register";
+var ig$ = apex.region(gridID).widget();
+var grid = ig$.interactiveGrid("getViews","grid");
+var modelView   = ig$.interactiveGrid("getViews","grid").model;
+var selectedRecords = grid.getSelectedRecords();
+
+var i, get_valueids = '', I_SELECTED_VAL,  model = modelView;
+//var v_col_name = pCol.toUpperCase();
+
+for ( i=0; i<selectedRecords.length; i++ ){
+
+    console.log(0);
+    record = model.getRecord(selectedRecords[i][0]);
+    console.log(record);
+    console.log(model.getValue(record,"ICIR_EMP_ID"));
+    console.log(1);
+
+        I_SELECTED_VAL = model.getValue( selectedRecords[i], "ICIR_EMP_ID" ); //"ICIR_EMP_ID"
+    
+    if  (get_valueids.length > 0) {
+        get_valueids += I_SELECTED_VAL.v +",";
+    } 
+    else {
+        get_valueids = I_SELECTED_VAL.v +",";
+    }
+
+}
+
+v_emp_id = get_valueids; //apex.item( "P365_EMP_ID" ).getValue();
+//call_report ('ELITE_BC_ID_CARD',v_emp_id);
+console.log(v_emp_id);
+
