@@ -69,3 +69,9 @@ v_emp_id = get_valueids; //apex.item( "P365_EMP_ID" ).getValue();
 //call_report ('ELITE_BC_ID_CARD',v_emp_id);
 console.log(v_emp_id);
 
+//////////////////////FOCUS INTERACTIVE GRID  SPECIFIC CELL SPECIFIC ROW///////////////////////////////
+--------------------------------------------------------------------
+var ig = apex.region("REGIONSTATIC_ID").widget().interactiveGrid("getViews","grid");
+var rec = ig.model.recordAt(0); // 0 = 1st row number
+ig.view$.grid("gotoCell", rec[0], "ORDER_DATETIME"); // ORDER_DATETIME = column or cell name
+
