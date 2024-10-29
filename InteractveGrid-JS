@@ -1,3 +1,12 @@
+USEFUL BLOG FOR INTERACTIVE GRID
+----------------------------------------
+1. https://github.com/stefandobre/Interactive-Grid-Cheat-Sheet
+=============================================================================
+
+Tip : To list all the actions of the IG :
+apex.region("id-region-emp").widget().interactiveGrid("getActions").list();
+=============================================================================
+
 // editable interactive gid
 apex.region("my_ig").call("getActions").set("edit", true);
 
@@ -79,4 +88,10 @@ ig.view$.grid("gotoCell", rec[0], "ORDER_DATETIME"); // ORDER_DATETIME = column 
 --------------------------------------------------------------------
 function deleteGRIDRow(){
      apex.region("DirectItemIssueDTL").widget().interactiveGrid("getActions").invoke("selection-delete");
+}
+
+//////////////////////ADD INTERACTIVE GRID NEW  ROW///////////////////////////////
+--------------------------------------------------------------------
+function  addGRIDRow(){
+     apex.region("DirectItemIssueDTL").widget().interactiveGrid("getActions").invoke("selection-add-row");
 }
