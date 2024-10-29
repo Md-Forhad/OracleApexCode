@@ -95,3 +95,14 @@ function deleteGRIDRow(){
 function  addGRIDRow(){
      apex.region("DirectItemIssueDTL").widget().interactiveGrid("getActions").invoke("selection-add-row");
 }
+
+//////////////////////INTERACTIVE GRID REMOVE COLUMN HEADER OPTION///////////////////////////////
+--------------------------------------------------------------------
+$("#my_ig").on("gridactivatecolumnheader", function(e){
+    setTimeout(function() {
+        $("#my_ig_ig_column_header_menu").find("[data-option='freeze']").remove();
+        $("#my_ig_ig_column_header_menu").find("[data-option='hide']").remove();
+        $("#my_ig_ig_column_header_menu").find("[data-option='aggregate']").remove();
+        $("#my_ig_ig_column_header_menu").find("[data-option='break']").remove();
+    },1);
+});
