@@ -106,3 +106,13 @@ $("#my_ig").on("gridactivatecolumnheader", function(e){
         $("#my_ig_ig_column_header_menu").find("[data-option='break']").remove();
     },1);
 });
+
+
+#######COLUMN FILTER OPTION DISABLE#########
+add this code into grid column javascript
+--------------------------------------------------------------------------
+function(config) {
+config.defaultGridColumnOptions = {
+    noHeaderActivate: true
+};
+return config; }
