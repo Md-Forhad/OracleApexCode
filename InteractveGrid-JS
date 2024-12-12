@@ -119,3 +119,17 @@ config.defaultGridColumnOptions = {
     noHeaderActivate: true
 };
 return config; }
+
+////// Updating Values for All Records upon Button Click in an Interactive Grid in Oracle APEX ////// 
+------------------------------------------------------------------------------------------------------
+
+// Get the Interactive Grid widget instance
+var ig$ = apex.region("grid").widget();
+var model = ig$.interactiveGrid("getViews", "grid").model
+// Loop through all records in the interactive grid
+model.forEach(function(record) {
+ // Access the column value and update it
+ var newValue = "Y"; // Specify the new value here
+ model.setValue(record,"INCLUDE_ALL", newValue); 
+});
+
