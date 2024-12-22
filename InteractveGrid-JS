@@ -10,6 +10,15 @@ apex.region("id-region-emp").widget().interactiveGrid("getActions").list();
 // editable interactive gid
 apex.region("my_ig").call("getActions").set("edit", true);
 
+if(apex.region('grid')){
+    apex.region("grid").call("getActions").set("edit", true);
+    apex.region("grid").call("getActions").hide("edit");
+}
+if(apex.region('grid-2')){
+    apex.region('grid-2').call('getActions').set('edit',true);
+    apex.region('grid-2').call('getActions').hide('edit');
+}
+
 //SAVE interactive grid region
 apex.region( "my_ig" ).widget().interactiveGrid( "getActions" ).invoke( "save" );
 
