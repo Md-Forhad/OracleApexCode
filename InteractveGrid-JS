@@ -142,3 +142,7 @@ model.forEach(function(record) {
  model.setValue(record,"INCLUDE_ALL", newValue); 
 });
 
+////////////////////// Navigating to a Specific Column in Interactive Grid After Adding a New Row ///////////////////////////////
+--------------------------------------------------------------------
+reference : https://blogs.ontoorsolutions.com/post/oracle-apex-navigating-to-a-specific-column-in-interactive-grid-after-adding-a-new-row/
+
