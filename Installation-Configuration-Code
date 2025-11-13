@@ -1,1 +1,7 @@
 
+java -jar ords.war --config C:\ords\config-ords install --interactive --log-folder C:\ords\ords-log
+ords --config C:\ords\config-ords install --interactive --log-folder C:\ords\ords-log
+----------------------------------
+
+JAVA_TOOL_OPTIONS
+-Dconfig.url=C:\ords\config-ords
