@@ -1,7 +1,44 @@
 
 java -jar ords.war --config C:\ords\config-ords install --interactive --log-folder C:\ords\ords-log
 ords --config C:\ords\config-ords install --interactive --log-folder C:\ords\ords-log
-----------------------------------
 
 JAVA_TOOL_OPTIONS
 -Dconfig.url=C:\ords\config-ords
+
+---------------------------------------------------------------------------------------
+
+
+
+DROP TABLESPACE SYSTEM INCLUDING CONTENTS AND DATAFILES
+/
+
+CREATE TABLESPACE APEX
+DATAFILE 
+  'C:\APP\ADMINISTRATOR\ORADATA\TT\APEX01.DBF' SIZE 1G AUTOEXTEND ON NEXT 50M MAXSIZE UNLIMITED
+LOGGING
+ONLINE
+EXTENT MANAGEMENT LOCAL AUTOALLOCATE
+BLOCKSIZE 8K
+FLASHBACK ON
+/
+
+@apexins.sql APEX APEX TEMP /i/
+
+SELECT comp_name, version, status FROM dba_registry WHERE comp_id='APEX';
+
+SELECT * From dba_users WHERE TRUNC(CREATED) = TRUNC(SYSDATE);
+
+SELECT * FROM apex_release;
+
+@apxchpwd.sql
+
+@apex_rest_config.sql
+
+ALTER USER APEX_LISTENER IDENTIFIED BY TTIT4apex ACCOUNT UNLOCK;
+ALTER USER APEX_PUBLIC_USER IDENTIFIED BY TTIT4apex ACCOUNT UNLOCK;
+ALTER USER APEX_REST_PUBLIC_USER IDENTIFIED BY TTIT4apex ACCOUNT UNLOCK; 
+
+java -jar crpcloud.war configdir C:\ords\config-ords
+
+java -jar crpcloud.war install advanced
+
