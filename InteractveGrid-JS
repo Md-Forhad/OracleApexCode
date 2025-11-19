@@ -54,6 +54,29 @@ let values = records.map( r => model.getValue( r, "ENAME" ) );
 
 apex.item( "P148_SELECTED_FIRST" ).setValue( values[0] );
 
+///////////// CALCULATE PAGE ITEM BASED ON GRID COLUMN VALUE //////////////////////////////////////////
+--------------------------------------------------------------------
+var gridID = "AdditionalServicePrice";
+var ig$ = apex.region(gridID).widget();
+var grid = ig$.interactiveGrid("getViews","grid");
+var model   = ig$.interactiveGrid("getViews","grid").model;
+
+var salKey = model.getFieldKey("PRICE"), 
+    total = 0;
+
+model.forEach(function(record, index, id) {
+    var sal = parseInt(record[salKey], 10),  // record[salKey] should be a little faster than using model.getValue in a loop
+        meta = model.getRecordMetadata(id);
+
+    if (!isNaN(sal) && !meta.deleted && !meta.agg) {
+        total += sal;
+    }
+});
+
+var v_hotel_price = Number(apex.item( "P8_QCHI_PRICE_PER_ROOM" ).getValue()) || 0;
+v_sum = v_hotel_price + total;
+
+$s("P8_CRQ_TOTAL_PRICE", v_sum);
 
 ///////////// USE SPECIFIC GRID REGION COLUMN VALUE withhout this object using Region ID ////////////////
 => 1 // create a dynamic action ==> SAVE-INTERACTIVE GRID <==
