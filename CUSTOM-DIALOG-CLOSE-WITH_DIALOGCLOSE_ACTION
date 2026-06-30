@@ -4,6 +4,10 @@
     :P4_PARENT_CHANGED := 'Y';
     APEX_UTIL.SET_SESSION_STATE('P4_PARENT_CHANGED', 'Y');
 
+add below line into ajax js code success part if needed
+
+apex.item("P7_PARENT_CHANGED").setValue("Y");
+
 ### 2 need to add this js code in popup page execute when page load javascript action
 ------------------------------------------------------------------------------------------------
 Note : at line "apex.event.trigger(document, "customDialogClose");" this will trigger page level created dynamic action which event type = custom,
