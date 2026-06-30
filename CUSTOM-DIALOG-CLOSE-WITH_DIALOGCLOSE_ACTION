@@ -1,0 +1,78 @@
+### 1 First create a page item non database item, then when ever data will be changed on POPUP, it's will be changed 'Y' or 'N' like below plsql expression
+------------------------------------------------------------------------------------------------
+    -- Mark that parent data has been changed
+    :P4_PARENT_CHANGED := 'Y';
+    APEX_UTIL.SET_SESSION_STATE('P4_PARENT_CHANGED', 'Y');
+
+### 2 need to add this js code in popup page execute when page load javascript action
+------------------------------------------------------------------------------------------------
+Note : at line "apex.event.trigger(document, "customDialogClose");" this will trigger page level created dynamic action which event type = custom,
+this action close the dialog and pass the value when dialog will close.
+---------------------------------------------------------------------------------------------------------------------------------------------------
+(function () {
+
+    var $parent = parent.apex ? parent.apex.jQuery : parent.jQuery;
+    var $dialog = $parent(".ui-dialog:visible").last();
+
+    if (!$dialog.length) {
+        return;
+    }
+
+    $dialog.find(".ui-dialog-titlebar-close").hide();
+
+    if ($dialog.find("#CUSTOM_DIALOG_CLOSE").length) {
+        return;
+    }
+
+    var $customCloseLink = $parent(
+        '<a href="javascript:void(0);" ' +
+        'id="CUSTOM_DIALOG_CLOSE" ' +
+        'class="t-Button t-Button--icon t-Button--default custom-apex-dialog-close" ' +
+        'title="Close" aria-label="Close">' +
+            '<span class="t-Icon fa fa-remove" aria-hidden="true"></span>' +
+        '</a>'
+    );
+
+    $customCloseLink.on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Trigger custom event inside popup page
+        apex.event.trigger(document, "customDialogClose");
+    });
+
+    $dialog.find(".ui-dialog-titlebar").append($customCloseLink);
+
+})();
+
+### 3 Craate a dynamic action 
+---------------------------------------------
+Name : CancelButtonClickDialogClose
+Event : Custom
+CustomEvent Name : customDialogClose [carefull about the name cause this name wise ##1 js code will trigger]
+JS Expression : document
+
+True Action : 
+----------------------
+var parentChanged = apex.item("P4_PARENT_CHANGED").getValue();
+
+if (parentChanged === "Y") {
+    apex.navigation.dialog.close(true, {
+        dialogPageId: "4",
+        P4_PARENT_CHANGED: "Y"
+    });
+} else {
+    apex.navigation.dialog.close(true, {
+        dialogPageId: "4",
+        P4_PARENT_CHANGED: "N"
+    });
+}
+
+### 4 Create a dynamic action in parent page, from which popup was open. 
+-------------------------------------------------------------------------------
+Name : Cancel_Close_Action
+Event : Dialog Close or Canceled
+Selection Type : Region
+Region : Selete Region
+Client Side Condition : this.data && this.data.P4_PARENT_CHANGED === "Y" (Similar like that condition)
+True Action : Submit Page.
