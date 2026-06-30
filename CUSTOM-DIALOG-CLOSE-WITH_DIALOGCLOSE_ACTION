@@ -49,7 +49,7 @@ this action close the dialog and pass the value when dialog will close.
 ---------------------------------------------
 Name : CancelButtonClickDialogClose
 Event : Custom
-CustomEvent Name : customDialogClose [carefull about the name cause this name wise ##1 js code will trigger]
+Custom Event : customDialogClose (CustomEvent Name : customDialogClose [carefull about the name cause this name wise ##1 js code will trigger] )
 JS Expression : document
 
 True Action : 
